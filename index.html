@@ -24,15 +24,19 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
+            width: auto;
+            height: auto;
+            max-width: 100vw;
+            max-height: 100vh;
             z-index: -1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .background-container img, .background-container video {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
@@ -64,7 +68,7 @@
 <body>
     <div class="background-container">
         <img id="bg-image" src="https://github.com/user-attachments/assets/2885a0f8-a0cb-499d-9328-3318818135c9" class="active">
-        <video id="bg-video" src="https://github.com/user-attachments/assets/4326074d-0579-4f71-b2d8-803737a32a11" muted loop></video>
+        <video id="bg-video" src="https://github.com/user-attachments/assets/4326074d-0579-4f71-b2d8-803737a32a11" muted loop playsinline></video>
     </div>
     
     <h1>Countdown to April 10, 2025</h1>
