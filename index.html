@@ -22,8 +22,10 @@
         }
         
         #content {
-            position: relative;
-            z-index: 1;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
@@ -36,29 +38,18 @@
             font-size: 3rem;
             font-weight: bold;
             color: red;
-            animation: floatText 5s infinite alternate ease-in-out;
+            animation: floatUpDown 6s infinite ease-in-out;
         }
         
-        @keyframes floatText {
+        @keyframes floatUpDown {
             0% {
-                top: 10%;
-                left: 10%;
-            }
-            25% {
-                top: 10%;
-                left: 80%;
+                transform: translateY(0);
             }
             50% {
-                top: 80%;
-                left: 80%;
-            }
-            75% {
-                top: 80%;
-                left: 10%;
+                transform: translateY(-30px);
             }
             100% {
-                top: 10%;
-                left: 10%;
+                transform: translateY(0);
             }
         }
     </style>
@@ -72,7 +63,7 @@
     
     <script>
         function updateCountdown() {
-            const targetDate = new Date('April 1, 2025 00:00:00').getTime();
+            const targetDate = new Date('April 10, 2025 10:30:00').getTime();
             const now = new Date().getTime();
             const difference = targetDate - now;
 
