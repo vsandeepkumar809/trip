@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .time-box {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            background: #f3f3f3;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Countdown to April 10, 2025</h1>
+    <div class="countdown">
+        <div class="time-box">Days: <span id="days"></span></div>
+        <div class="time-box">Hours: <span id="hours"></span></div>
+        <div class="time-box">Minutes: <span id="minutes"></span></div>
+        <div class="time-box">Seconds: <span id="seconds"></span></div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const targetDate = new Date("April 10, 2025 00:00:00").getTime();
+            const now = new Date().getTime();
+            const timeDifference = targetDate - now;
+
+            if (timeDifference <= 0) {
+                document.querySelector('.countdown').innerHTML = "Time's up!";
+                return;
+            }
+
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Run initially to prevent delay
+    </script>
+</body>
+</html>
