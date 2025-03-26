@@ -36,9 +36,38 @@
             border: 5px solid #333;
             width: auto;
         }
+
+        #floatingText {
+            position: absolute;
+            top: 60%; /* Lowered the floating text */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+            opacity: 0;
+            animation: flicker 0.5s infinite alternate, moveUpDown 2s infinite ease-in-out, fadeInOut 5s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+
+        @keyframes moveUpDown {
+            0% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -55%); }
+            100% { transform: translate(-50%, -45%); }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
+    <div id="floatingText">I Love You Suha ❤️</div>
     <div id="content">
         <div id="countdown">Loading... ⏳</div>
     </div>
