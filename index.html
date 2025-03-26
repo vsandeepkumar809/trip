@@ -33,21 +33,32 @@
         
         #floating-text {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             font-size: 3rem;
             font-weight: bold;
             color: red;
-            animation: floatText 3s infinite alternate ease-in-out;
+            animation: floatText 5s infinite alternate ease-in-out;
         }
         
         @keyframes floatText {
-            from {
-                transform: translate(-50%, -50%) translateY(-20px);
+            0% {
+                top: 10%;
+                left: 10%;
             }
-            to {
-                transform: translate(-50%, -50%) translateY(20px);
+            25% {
+                top: 10%;
+                left: 80%;
+            }
+            50% {
+                top: 80%;
+                left: 80%;
+            }
+            75% {
+                top: 80%;
+                left: 10%;
+            }
+            100% {
+                top: 10%;
+                left: 10%;
             }
         }
     </style>
