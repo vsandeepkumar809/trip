@@ -19,6 +19,8 @@
             background-size: cover;
             background-attachment: fixed;
             width: 100vw;
+            border: 2px solid #ff0000;
+            box-sizing: border-box;
         }
         
         #content {
@@ -38,18 +40,20 @@
             font-size: 3rem;
             font-weight: bold;
             color: red;
-            animation: floatUpDown 6s infinite ease-in-out;
+            animation: floatTopBottom 6s infinite ease-in-out;
         }
         
-        @keyframes floatUpDown {
+        @keyframes floatTopBottom {
             0% {
-                transform: translateY(0);
+                top: 0;
             }
             50% {
-                transform: translateY(-30px);
+                top: 50%;
+                transform: translateY(-50%);
             }
             100% {
-                transform: translateY(0);
+                top: 100%;
+                transform: translateY(-100%);
             }
         }
     </style>
