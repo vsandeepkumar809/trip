@@ -15,28 +15,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-        }
-        
-        #background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        video, img {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            background: url('https://github.com/user-attachments/assets/358fd8e0-3db5-4863-94e2-f3e9024503f5') no-repeat center center/cover;
         }
         
         #content {
@@ -50,13 +29,6 @@
     </style>
 </head>
 <body>
-    <div id="background">
-        <video id="bgVideo" autoplay loop muted>
-            <source src="https://github.com/user-attachments/assets/ce05e677-9b74-4b27-bf18-62ca43756a5e" type="video/mp4">
-        </video>
-        <img id="bgImage" src="https://github.com/user-attachments/assets/b4984a81-8707-4cf1-a699-65ecef313007" style="display: none;">
-    </div>
-
     <div id="content">
         <div id="countdown">Loading... ⏳</div>
     </div>
@@ -81,23 +53,7 @@
         }
 
         setInterval(updateCountdown, 1000);
-        updateCountdown(); 
-        
-        function toggleBackground() {
-            const video = document.getElementById('bgVideo');
-            const image = document.getElementById('bgImage');
-            
-            if (video.style.display === "none") {
-                video.style.display = "block";
-                image.style.display = "none";
-                video.play();
-            } else {
-                video.style.display = "none";
-                image.style.display = "block";
-            }
-        }
-        
-        setInterval(toggleBackground, 10000);
+        updateCountdown();
     </script>
 </body>
 </html>
