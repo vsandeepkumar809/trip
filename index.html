@@ -18,7 +18,7 @@
             background: url('https://github.com/user-attachments/assets/50fc90c0-4234-4dcf-99a5-58268b5f5cd3') no-repeat center center;
             background-size: contain;
             background-attachment: fixed;
-            background-color: #f0f0f0; /* Fallback color */
+            background-color: #f0f0f0;
             width: 100vw;
             border: 2px solid #ff0000;
             box-sizing: border-box;
@@ -26,7 +26,7 @@
         
         #content {
             position: absolute;
-            bottom: 60px; /* Moved up */
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.8);
@@ -35,12 +35,12 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             border: 5px solid #333;
             width: auto;
-            white-space: nowrap; /* Prevents text from breaking into a new line */
+            white-space: nowrap;
         }
 
         #floatingText {
             position: absolute;
-            top: 60%; /* Lowered the floating text */
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 24px;
@@ -84,12 +84,14 @@
                 return;
             }
 
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
             const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-            document.getElementById('countdown').innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s 🧳`;
+            document.getElementById('countdown').innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s 🧳<br>
+                Weeks: ${weeks} | Days: ${days} | Hours: ${hours} | Minutes: ${minutes} | Seconds: ${seconds}`;
         }
 
         setInterval(updateCountdown, 1000);
