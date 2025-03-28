@@ -3,51 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown with Background</title>
     <style>
+        /* Full-screen, responsive background */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             color: #333;
             margin: 0;
-            overflow: hidden;
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
-            background: url('https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png') no-repeat center center;
+            background: url('https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png') no-repeat center center fixed;
             background-size: cover;
-            background-attachment: fixed;
-            background-color: #f0f0f0;
-            width: 100vw;
-            box-sizing: border-box;
         }
 
-        /* Fixed position for the hit counter */
+        /* Mobile fix for background scrolling issues */
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+            }
+        }
+
+        /* Hit counter position */
         #hitCounter {
-            position: fixed;
+            position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.8); /* Optional: Transparent background */
             padding: 5px;
             border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
         }
 
-        #content {
-            position: absolute;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            border: 5px solid #333;
-            width: auto;
-            white-space: nowrap;
-        }
-
+        /* Floating text animation */
         #floatingText {
             position: absolute;
             top: 60%;
@@ -75,11 +67,26 @@
             0%, 100% { opacity: 0; }
             50% { opacity: 1; }
         }
+
+        /* Countdown box */
+        #content {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border: 5px solid #333;
+            white-space: nowrap;
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Hit Counter at Top Right -->
+    <!-- Hit Counter -->
     <div id="hitCounter">
         <a href="https://www.hitwebcounter.com" target="_blank">
             <img src="https://hitwebcounter.com/counter/counter.php?page=19950782&style=0011&nbdigits=4&type=page&initCount=0" 
@@ -87,11 +94,14 @@
         </a>
     </div>
 
+    <!-- Floating text -->
     <div id="floatingText">I Love You Suha ❤️</div>
+
+    <!-- Countdown box -->
     <div id="content">
         <div id="countdown">Loading... ⏳</div>
     </div>
-    
+
     <script>
         function updateCountdown() {
             const targetDate = new Date('April 10, 2025 10:30:00').getTime();
@@ -110,12 +120,13 @@
             const totalMinutes = Math.floor(difference / (1000 * 60));
             const totalSeconds = Math.floor(difference / 1000);
 
-            document.getElementById('countdown').innerHTML = `⏳ ${weeks} week ${days} days 🧳<br>
+            document.getElementById('countdown').innerHTML = `⏳ ${weeks} weeks ${days} days 🧳<br>
                 ${totalDays} days | ${totalHours} hours | ${totalMinutes} minutes | ${totalSeconds} seconds`;
         }
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
     </script>
+
 </body>
 </html>
