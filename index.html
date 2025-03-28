@@ -59,9 +59,32 @@
         audio {
             width: 100%;
         }
+
+        /* Play Music Button */
+        #playMusicBtn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ff5733;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #playMusicBtn:hover {
+            background: #e04e2a;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Play Music Button -->
+    <button id="playMusicBtn">🎵 Play Music</button>
 
     <!-- Hidden Audio Controls -->
     <div id="audioControls">
@@ -119,17 +142,26 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Toggle Audio Player on Tap
-        document.body.addEventListener('click', function () {
+        // Play Music Button
+        document.getElementById('playMusicBtn').addEventListener('click', function () {
             const audioControls = document.getElementById('audioControls');
             const audio = document.getElementById('bgMusic');
 
+            audioControls.style.display = 'none'; // Hide audio bar
+            audio.play().catch(error => console.log("Autoplay blocked, user must manually start."));
+
+            // Hide the play button after playing music
+            document.getElementById('playMusicBtn').style.display = 'none';
+        });
+
+        // Toggle Audio Player on Tap
+        document.body.addEventListener('click', function () {
+            const audioControls = document.getElementById('audioControls');
+
             if (audioControls.style.display === 'none' || audioControls.style.display === '') {
                 audioControls.style.display = 'block';
-                audio.play().catch(error => console.log("Autoplay blocked, user must manually start."));
             } else {
                 audioControls.style.display = 'none';
-                audio.pause();
             }
         });
 
@@ -140,7 +172,7 @@
             if (document.hidden) {
                 audio.pause();
                 console.log("Page hidden, music paused.");
-            } else if (document.getElementById('audioControls').style.display === 'block') {
+            } else if (document.getElementById('playMusicBtn').style.display === 'none') {
                 audio.play().catch(error => console.log("Autoplay blocked when returning."));
                 console.log("Page visible, music resumed.");
             }
