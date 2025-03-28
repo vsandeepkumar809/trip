@@ -86,4 +86,54 @@
     <script>
         const media = [
             'https://www.dropbox.com/scl/fi/0wzxetnqu9ej4oolqb9bl/Lovera.gif?rlkey=88pd02kmdwp7032eyr5ide9b9&st=19m3yt7a&dl=1',
-            'https://www.dropbox.com/scl/fi/bh9qrbo4ysqtd27gpxns2/Lovera.png?rlkey=5ihq
+            'https://www.dropbox.com/scl/fi/bh9qrbo4ysqtd27gpxns2/Lovera.png?rlkey=5ihqwdqcqiixoyjsmkrjrkph1&st=vh6ersz4&dl=1',
+            'https://www.dropbox.com/scl/fi/z8p1drikyw8dhbagsp568/Lovera-1.png?rlkey=io2suozmpkwnq4fs8slu6j39m&st=3ov5jyrf&dl=1',
+            'https://www.dropbox.com/scl/fi/brg0od9k7kzr19ims88aq/Lovera-2.png?rlkey=tura84ey0e0r4znqmmyc20js0&st=vyqzflpx&dl=1',
+            'https://www.dropbox.com/scl/fi/y51s62f4wx0kll1byelh6/giff.gif?rlkey=wpi3kt6gc5p04wc8afeohnxke&st=egxj8nou&dl=1'
+        ];
+        let currentIndex = 0;
+        function changeMedia() {
+            document.body.style.backgroundImage = `url('${media[currentIndex]}')`;
+            currentIndex = (currentIndex + 1) % media.length;
+        }
+        setInterval(changeMedia, 10000);
+        changeMedia();
+        function updateCountdown() {
+            const targetDate = new Date('April 10, 2025 10:30:00').getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+            if (difference < 0) {
+                document.getElementById('countdown').innerHTML = "🎉 It's time for your trip! 🚀🎒";
+                return;
+            }
+            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor((difference / (1000 * 60 * 60 * 24)) % 7);
+            const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const totalHours = Math.floor(difference / (1000 * 60 * 60));
+            const totalMinutes = Math.floor(difference / (1000 * 60));
+            const totalSeconds = Math.floor(difference / 1000);
+            document.getElementById('countdown').innerHTML = 
+                `⏳ ${weeks} week ${days} days 🧳<br>
+                ${totalDays} days | ${totalHours} hours | ${totalMinutes} minutes | ${totalSeconds} seconds`;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        const audio = document.getElementById('bgMusic');
+        document.getElementById('playMusicBtn').addEventListener('click', function() {
+            audio.play();
+            this.style.display = 'none';
+            document.getElementById('audioControls').style.display = 'block';
+            setTimeout(() => document.getElementById('audioControls').style.display = 'none', 3000);
+        });
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                audio.pause();
+            }
+        });
+        document.body.addEventListener('click', function() {
+            document.getElementById('audioControls').style.display = 'block';
+            setTimeout(() => document.getElementById('audioControls').style.display = 'none', 3000);
+        });
+    </script>
+</body>
+</html>
