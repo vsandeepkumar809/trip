@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown with Background</title>
     <style>
-        /* Full-screen, responsive background */
+        /* Full-screen, flexible background */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -21,25 +21,25 @@
             background-size: cover;
         }
 
-        /* Mobile fix for background scrolling issues */
+        /* Mobile fix for background */
         @media (max-width: 768px) {
             body {
                 background-attachment: scroll;
             }
         }
 
-        /* Hit counter position */
+        /* Hit counter */
         #hitCounter {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(255, 255, 255, 0.8); /* Optional: Transparent background */
+            background: rgba(255, 255, 255, 0.8);
             padding: 5px;
             border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         }
 
-        /* Floating text animation */
+        /* Floating text */
         #floatingText {
             position: absolute;
             top: 60%;
@@ -72,16 +72,16 @@
         #content {
             position: absolute;
             bottom: 60px;
-            left: 60%;
-            transform: translateX(-50%);
+            left: 50%;
+            transform: translate(-50%, 0);
             background: rgba(255, 255, 255, 0.8);
             padding: 15px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             border: 5px solid #333;
             white-space: nowrap;
+            text-align: center;
         }
-
     </style>
 </head>
 <body>
@@ -120,7 +120,7 @@
             const totalMinutes = Math.floor(difference / (1000 * 60));
             const totalSeconds = Math.floor(difference / 1000);
 
-            document.getElementById('countdown').innerHTML = `⏳ ${weeks} weeks ${days} days 🧳<br>
+            document.getElementById('countdown').innerHTML = `⏳ ${weeks} week ${days} days 🧳<br> 
                 ${totalDays} days | ${totalHours} hours | ${totalMinutes} minutes | ${totalSeconds} seconds`;
         }
 
