@@ -122,6 +122,11 @@
             document.getElementById('audioControls').style.display = 'block';
             document.getElementById('bgMusic').play();
             this.style.display = 'none';
+            setTimeout(() => document.getElementById('audioControls').style.display = 'none', 3000);
+        });
+        document.body.addEventListener('click', function() {
+            document.getElementById('audioControls').style.display = 'block';
+            setTimeout(() => document.getElementById('audioControls').style.display = 'none', 3000);
         });
     </script>
 </body>
