@@ -17,14 +17,16 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            background: url('https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png') no-repeat center center fixed;
+            background: url('https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png') no-repeat center center;
             background-size: cover;
+            background-color: #f0f0f0; /* Fallback color */
         }
 
-        /* Mobile fix for background */
+        /* Mobile fix: Disable fixed background for better compatibility */
         @media (max-width: 768px) {
             body {
                 background-attachment: scroll;
+                background-size: cover;
             }
         }
 
@@ -71,9 +73,9 @@
         /* Countdown box (fixed centering) */
         #content {
             position: absolute;
-            bottom: 10%; /* Adjusted to keep it near the bottom */
+            bottom: 10%;
             left: 50%;
-            transform: translate(-50%, 0); /* Perfect horizontal centering */
+            transform: translate(-50%, 0);
             background: rgba(255, 255, 255, 0.8);
             padding: 15px 20px;
             border-radius: 10px;
@@ -83,6 +85,16 @@
             text-align: center;
         }
 
+        /* Mobile-friendly adjustments */
+        @media (max-width: 480px) {
+            #floatingText {
+                font-size: 18px;
+            }
+            #content {
+                width: 80%;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
