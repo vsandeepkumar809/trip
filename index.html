@@ -17,7 +17,7 @@
             align-items: center;
             position: relative;
             background: no-repeat center center fixed;
-            background-size: contain;
+            background-size: cover;
             transition: background-image 1s ease-in-out;
         }
         #content {
@@ -88,7 +88,8 @@
             'https://www.dropbox.com/scl/fi/0wzxetnqu9ej4oolqb9bl/Lovera.gif?rlkey=88pd02kmdwp7032eyr5ide9b9&st=19m3yt7a&dl=1',
             'https://www.dropbox.com/scl/fi/bh9qrbo4ysqtd27gpxns2/Lovera.png?rlkey=5ihqwdqcqiixoyjsmkrjrkph1&st=vh6ersz4&dl=1',
             'https://www.dropbox.com/scl/fi/z8p1drikyw8dhbagsp568/Lovera-1.png?rlkey=io2suozmpkwnq4fs8slu6j39m&st=3ov5jyrf&dl=1',
-            'https://www.dropbox.com/scl/fi/brg0od9k7kzr19ims88aq/Lovera-2.png?rlkey=tura84ey0e0r4znqmmyc20js0&st=vyqzflpx&dl=1'
+            'https://www.dropbox.com/scl/fi/brg0od9k7kzr19ims88aq/Lovera-2.png?rlkey=tura84ey0e0r4znqmmyc20js0&st=vyqzflpx&dl=1',
+            'https://www.dropbox.com/scl/fi/y51s62f4wx0kll1byelh6/giff.gif?rlkey=wpi3kt6gc5p04wc8afeohnxke&st=egxj8nou&dl=1'
         ];
         let currentIndex = 0;
         function changeMedia() {
@@ -117,18 +118,10 @@
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
-        document.getElementById('playMusicBtn').addEventListener('click', function () {
-            let bgMusic = document.getElementById('bgMusic');
-            let audioControls = document.getElementById('audioControls');
-            audioControls.style.display = 'block';
-            bgMusic.play();
+        document.getElementById('playMusicBtn').addEventListener('click', function() {
+            document.getElementById('audioControls').style.display = 'block';
+            document.getElementById('bgMusic').play();
             this.style.display = 'none';
-            setTimeout(() => audioControls.style.opacity = '0', 5000);
-        });
-        document.body.addEventListener('click', function () {
-            let audioControls = document.getElementById('audioControls');
-            audioControls.style.opacity = '1';
-            setTimeout(() => audioControls.style.opacity = '0', 5000);
         });
     </script>
 </body>
