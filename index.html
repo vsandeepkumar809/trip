@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown with Background</title>
     <style>
-        /* Full-screen, flexible background */
+        /* Full-screen flexible background */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -18,15 +18,14 @@
             align-items: center;
             position: relative;
             background: url('https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png') no-repeat center center;
-            background-size: cover;
+            background-size: contain; /* Ensures full image is visible */
             background-color: #f0f0f0; /* Fallback color */
         }
 
-        /* Mobile fix: Disable fixed background for better compatibility */
+        /* Mobile fix: Ensure background scales properly */
         @media (max-width: 768px) {
             body {
-                background-attachment: scroll;
-                background-size: cover;
+                background-size: contain;
             }
         }
 
@@ -70,19 +69,20 @@
             50% { opacity: 1; }
         }
 
-        /* Countdown box (fixed centering) */
+        /* Countdown box (centered properly) */
         #content {
             position: absolute;
             bottom: 10%;
             left: 50%;
             transform: translate(-50%, 0);
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             padding: 15px 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             border: 5px solid #333;
-            white-space: nowrap;
             text-align: center;
+            font-size: 20px;
+            word-break: break-word;
         }
 
         /* Mobile-friendly adjustments */
@@ -91,8 +91,9 @@
                 font-size: 18px;
             }
             #content {
-                width: 80%;
-                font-size: 14px;
+                width: 90%;
+                font-size: 16px;
+                padding: 10px;
             }
         }
     </style>
