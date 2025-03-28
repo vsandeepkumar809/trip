@@ -41,31 +41,11 @@
             font-weight: bold;
         }
 
-        /* Play Music button */
-        #playButton {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        #playButton:hover {
-            background: #e84118;
-        }
-
-        /* Hidden audio control bar (shown after button click) */
+        /* Hidden audio control bar */
         #audioControls {
             display: none;
             position: absolute;
-            top: 50px;
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
@@ -82,9 +62,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Play Music Button -->
-    <button id="playButton">Play Music 🎵</button>
 
     <!-- Hidden Audio Controls -->
     <div id="audioControls">
@@ -142,12 +119,18 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Show Audio Controls & Play Music When Button Clicked
-        document.getElementById('playButton').addEventListener('click', function () {
-            document.getElementById('audioControls').style.display = 'block'; // Show audio controls
-            document.getElementById('playButton').style.display = 'none'; // Hide Play Music button
+        // Toggle Audio Player on Tap
+        document.body.addEventListener('click', function () {
+            const audioControls = document.getElementById('audioControls');
             const audio = document.getElementById('bgMusic');
-            audio.play().catch(error => console.log("Autoplay blocked, user must manually start."));
+
+            if (audioControls.style.display === 'none' || audioControls.style.display === '') {
+                audioControls.style.display = 'block';
+                audio.play().catch(error => console.log("Autoplay blocked, user must manually start."));
+            } else {
+                audioControls.style.display = 'none';
+                audio.pause();
+            }
         });
 
         // Auto Pause/Resume Music When Page is Hidden
