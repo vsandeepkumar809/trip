@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown with Background Slideshow</title>
     <style>
-        /* Full-screen background container */
+        /* Fullscreen Background */
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
             overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
         }
 
-        /* Background container for slideshow */
+        /* Background Slideshow */
         #backgroundContainer {
             position: fixed;
             top: 0;
@@ -26,33 +29,45 @@
             transition: background 1s ease-in-out;
         }
 
-        /* Center content */
-        .contentWrapper {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
+        /* Floating Text */
+        #floatingText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
             color: white;
-            font-family: Arial, sans-serif;
+            opacity: 0.8;
+            animation: flicker 0.5s infinite alternate;
         }
 
-        /* Countdown box */
+        @keyframes flicker {
+            0% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* Countdown Box at Bottom */
         #content {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.9);
             padding: 15px 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            border: 5px solid #333;
+            border: 3px solid #333;
             font-size: 20px;
-            word-break: break-word;
             max-width: 90%;
+            color: #333;
         }
 
-        /* Mobile-friendly adjustments */
+        /* Mobile Styling */
         @media (max-width: 480px) {
+            #floatingText {
+                font-size: 18px;
+            }
             #content {
                 font-size: 16px;
                 padding: 10px;
@@ -66,21 +81,19 @@
     <!-- Background container -->
     <div id="backgroundContainer"></div>
 
-    <div class="contentWrapper">
-        <!-- Floating text -->
-        <div id="floatingText">I Love You Suha ❤️</div>
+    <!-- Floating text -->
+    <div id="floatingText">I Love You Suha ❤️</div>
 
-        <!-- Countdown box -->
-        <div id="content">
-            <div id="countdown">Loading... ⏳</div>
-        </div>
+    <!-- Countdown box at bottom -->
+    <div id="content">
+        <div id="countdown">Loading... ⏳</div>
     </div>
 
     <script>
         // Background image slideshow
         const images = [
             'https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png',
-             'https://i.postimg.cc/KvSrfj8Y/Untitled-design.png',
+            'https://i.postimg.cc/KvSrfj8Y/Untitled-design.png',
             'https://i.postimg.cc/s2vhsCg8/2.png'
         ];
         let currentImageIndex = 0;
