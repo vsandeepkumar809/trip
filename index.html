@@ -22,7 +22,6 @@
             transition: background-image 1s ease-in-out;
         }
 
-        /* GIF and Video Container */
         #mediaContainer {
             position: fixed;
             top: 0;
@@ -39,7 +38,6 @@
             object-fit: cover;
         }
 
-        /* Countdown Box */
         #content {
             position: absolute;
             bottom: 20px;
@@ -58,7 +56,6 @@
             font-weight: bold;
         }
 
-        /* Play Music Button */
         #playMusicBtn {
             position: absolute;
             top: 50%;
@@ -72,6 +69,7 @@
             cursor: pointer;
             font-size: 18px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            display: block;
         }
 
         #playMusicBtn:hover {
@@ -83,7 +81,7 @@
 
     <!-- GIF & Video Container -->
     <div id="mediaContainer">
-        <img id="bgMedia" src="https://www.dropbox.com/scl/fi/dbkniwgfi60o8sdl4qrm7/Lovera.gif?rlkey=q0hksupkeyiuejdgmgqnhrr7z&st=sw49by5o&raw=1" alt="GIF">
+        <img id="bgMedia" src="https://www.dropbox.com/scl/fi/dbkniwgfi60o8sdl4qrm7/Lovera.gif?rlkey=q0hksupkeyiuejdgmgqnhrr7z&st=orvk8jrd&raw=1" alt="GIF">
     </div>
 
     <!-- Play Music Button -->
@@ -101,7 +99,7 @@
             'https://www.dropbox.com/scl/fi/brg0od9k7kzr19ims88aq/Lovera-2.png?rlkey=tura84ey0e0r4znqmmyc20js0&st=vyqzflpx&raw=1'
         ];
 
-        const gifSrc = "https://www.dropbox.com/scl/fi/dbkniwgfi60o8sdl4qrm7/Lovera.gif?rlkey=q0hksupkeyiuejdgmgqnhrr7z&st=sw49by5o&raw=1";
+        const gifSrc = "https://www.dropbox.com/scl/fi/dbkniwgfi60o8sdl4qrm7/Lovera.gif?rlkey=q0hksupkeyiuejdgmgqnhrr7z&st=orvk8jrd&raw=1";
         const videoSrc = "https://www.dropbox.com/scl/fi/skiw1bm6xi6fj4wiif4gu/Lovera.mp4?rlkey=00hdc80ivzrb6vnrx5o49k4pz&st=kq9nvkv4&raw=1";
         
         let currentIndex = 0;
@@ -119,7 +117,7 @@
         }
 
         function showVideo() {
-            mediaContainer.innerHTML = `<video id="videoElement" width="100%" height="100%" autoplay>
+            mediaContainer.innerHTML = `<video id="videoElement" width="100%" height="100%" autoplay controls>
                 <source src="${videoSrc}" type="video/mp4">
             </video>`;
 
@@ -147,7 +145,7 @@
             showImage(0);
             currentIndex = 1;
             cycleMedia();
-        }, 20000); // Play GIF for 20 sec before switching
+        }, 20000);
 
         // Countdown Timer
         function updateCountdown() {
@@ -181,8 +179,7 @@
             const audio = new Audio("https://www.dropbox.com/scl/fi/ybik0nc73k0wekrnke9oq/urike.mp3?rlkey=dnit3der6fo0u3ostc8jbps23&st=ck2tx4ay&raw=1");
             audio.loop = true;
             audio.play().catch(error => console.log("Autoplay blocked, user must manually start."));
-
-            document.getElementById('playMusicBtn').style.display = 'none';
+            this.style.display = 'none';
         });
 
     </script>
