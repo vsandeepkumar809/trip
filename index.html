@@ -127,7 +127,8 @@
         // Background Image Slideshow (after video plays)
         const images = [
             'https://www.dropbox.com/scl/fi/bh9qrbo4ysqtd27gpxns2/Lovera.png?rlkey=5ihqwdqcqiixoyjsmkrjrkph1&st=vh6ersz4&raw=1',
-            'https://www.dropbox.com/scl/fi/z8p1drikyw8dhbagsp568/Lovera-1.png?rlkey=io2suozmpkwnq4fs8slu6j39m&st=3ov5jyrf&raw=1'
+            'https://www.dropbox.com/scl/fi/z8p1drikyw8dhbagsp568/Lovera-1.png?rlkey=io2suozmpkwnq4fs8slu6j39m&st=3ov5jyrf&raw=1',
+            'https://www.dropbox.com/scl/fi/brg0od9k7kzr19ims88aq/Lovera-2.png?rlkey=tura84ey0e0r4znqmmyc20js0&st=vyqzflpx&raw=1'
         ];
         let currentIndex = 0;
         const video = document.getElementById("bgVideo");
@@ -136,7 +137,7 @@
             video.pause();
             document.getElementById("videoContainer").style.display = "none";
             document.body.style.backgroundImage = `url('${images[currentIndex]}')`;
-            setInterval(changeBackground, 20000);
+            setInterval(changeBackground, 10000);
         }, 20000); // Video plays for 20 seconds
 
         function changeBackground() {
