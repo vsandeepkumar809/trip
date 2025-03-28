@@ -29,47 +29,7 @@
             }
         }
 
-        /* Hit counter position */
-        #hitCounter {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 5px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Floating text animation */
-        #floatingText {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            opacity: 0;
-            animation: flicker 0.5s infinite alternate, moveUpDown 2s infinite ease-in-out, fadeInOut 5s infinite;
-        }
-
-        @keyframes flicker {
-            0% { opacity: 1; }
-            100% { opacity: 0.2; }
-        }
-
-        @keyframes moveUpDown {
-            0% { transform: translate(-50%, -50%); }
-            50% { transform: translate(-50%, -55%); }
-            100% { transform: translate(-50%, -45%); }
-        }
-
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        /* Countdown box at the bottom & centered */
+        /* Countdown box at the bottom */
         #content {
             position: absolute;
             bottom: 20px;
@@ -85,20 +45,24 @@
             font-size: 20px;
         }
 
+        /* Play button (hidden initially) */
+        #playButton {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none; /* Initially hidden */
+        }
     </style>
 </head>
 <body>
-
-    <!-- Hit Counter -->
-    <div id="hitCounter">
-        <a href="https://www.hitwebcounter.com" target="_blank">
-            <img src="https://hitwebcounter.com/counter/counter.php?page=19950782&style=0011&nbdigits=4&type=page&initCount=0" 
-            title="Counter Widget" alt="Visit counter For Websites" border="0" />
-        </a>
-    </div>
-
-    <!-- Floating text -->
-    <div id="floatingText">I Love You Suha ❤️</div>
 
     <!-- Countdown box -->
     <div id="content">
@@ -106,9 +70,12 @@
     </div>
 
     <!-- Background Music -->
-    <audio id="bgMusic" autoplay loop>
+    <audio id="bgMusic" loop>
         <source src="https://www.dropbox.com/scl/fi/r9i3ojtfsb10c9whce2e8/Love-Bgm-Ringtone-South-Bgm-Ringtone-Tamil-Ringtone-1.mp3?rlkey=ny3owcijbwtq16lzw9bxwidyf&st=c4jf23tw&dl=1" type="audio/mpeg">
     </audio>
+
+    <!-- Play Button for iOS Fix -->
+    <button id="playButton">▶ Play Music</button>
 
     <script>
         // Background Image Slideshow
@@ -152,17 +119,30 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Handle Autoplay for Music (iOS Fix)
-        document.addEventListener('DOMContentLoaded', () => {
-            const audio = document.getElementById('bgMusic');
+        // Autoplay Music Handling
+        const audio = document.getElementById('bgMusic');
+        const playButton = document.getElementById('playButton');
+
+        function playMusic() {
             const playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
                     console.log("Audio is playing!");
+                    playButton.style.display = "none"; // Hide button if successful
                 }).catch(error => {
-                    console.log("User interaction needed to start audio.");
+                    console.log("Autoplay blocked. Showing play button.");
+                    playButton.style.display = "block"; // Show button if autoplay is blocked
                 });
             }
+        }
+
+        // Attempt autoplay on page load
+        document.addEventListener('DOMContentLoaded', playMusic);
+
+        // User interaction to start music if needed
+        playButton.addEventListener('click', () => {
+            audio.play();
+            playButton.style.display = "none";
         });
     </script>
 
