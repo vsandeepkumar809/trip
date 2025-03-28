@@ -1,40 +1,161 @@
-<audio id="bgMusic" loop muted>
-    <source src="https://www.dropbox.com/scl/fi/ybik0nc73k0wekrnke9oq/urike.mp3?rlkey=dnit3der6fo0u3ostc8jbps23&st=ck2tx4ay&dl=1" type="audio/mpeg">
-</audio>
-
-<button id="playButton">▶ Play Music</button>
-
-<script>
-    const audio = document.getElementById('bgMusic');
-    const playButton = document.getElementById('playButton');
-
-    function tryAutoplay() {
-        audio.muted = false; // Unmute before playing
-        const playPromise = audio.play();
-
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                console.log("Autoplay successful");
-                playButton.style.display = "none"; // Hide play button if autoplay works
-            }).catch(() => {
-                console.log("Autoplay blocked, showing play button.");
-                playButton.style.display = "block"; // Show play button if autoplay fails
-            });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown with Background & Music</title>
+    <style>
+        /* Full-screen, responsive background */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #fff;
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: no-repeat center center fixed;
+            background-size: cover;
+            transition: background-image 1s ease-in-out;
         }
-    }
 
-    document.addEventListener('DOMContentLoaded', tryAutoplay);
-    playButton.addEventListener('click', () => {
-        audio.muted = false;
-        audio.play();
-        playButton.style.display = "none";
-    });
-
-    document.addEventListener("visibilitychange", function() {
-        if (document.hidden) {
-            audio.pause();
-        } else {
-            tryAutoplay();
+        /* Mobile fix for background scrolling issues */
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+            }
         }
-    });
-</script>
+
+        /* Countdown box at the bottom */
+        #content {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            color: black;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border: 5px solid #333;
+            white-space: nowrap;
+            font-size: 20px;
+        }
+
+        /* Play button (hidden initially) */
+        #playButton {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Countdown box -->
+    <div id="content">
+        <div id="countdown">Loading... ⏳</div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.dropbox.com/scl/fi/ybik0nc73k0wekrnke9oq/urike.mp3?rlkey=dnit3der6fo0u3ostc8jbps23&st=ck2tx4ay&dl=1" type="audio/mpeg">
+    </audio>
+
+    <!-- Play Button for iOS Fix -->
+    <button id="playButton">▶ Play Music</button>
+
+    <script>
+        // Background Image Slideshow
+        const images = [
+            'https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png', 
+            'https://i.postimg.cc/KvSrfj8Y/Untitled-design.png',
+            'https://i.postimg.cc/s2vhsCg8/2.png'
+        ];
+        let currentIndex = 0;
+
+        function changeBackground() {
+            document.body.style.backgroundImage = `url('${images[currentIndex]}')`;
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+
+        setInterval(changeBackground, 5000);
+        changeBackground(); // Initial call
+
+        // Countdown Timer
+        function updateCountdown() {
+            const targetDate = new Date('April 10, 2025 10:30:00').getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById('countdown').innerHTML = "🎉 It's time for your trip! 🚀🎒";
+                return;
+            }
+
+            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor((difference / (1000 * 60 * 60 * 24)) % 7);
+            const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = `⏳ ${weeks} weeks ${days} days 🧳<br> 
+                ${totalDays} days | ${hours} hours | ${minutes} minutes | ${seconds} seconds`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Autoplay Music Handling
+        const audio = document.getElementById('bgMusic');
+        const playButton = document.getElementById('playButton');
+
+        function playMusic() {
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Audio is playing!");
+                    playButton.style.display = "none"; // Hide button if successful
+                }).catch(error => {
+                    console.log("Autoplay blocked. Showing play button.");
+                    playButton.style.display = "block"; // Show button if autoplay is blocked
+                });
+            }
+        }
+
+        // Attempt autoplay on page load
+        document.addEventListener('DOMContentLoaded', playMusic);
+
+        // User interaction to start music if needed
+        playButton.addEventListener('click', () => {
+            audio.play();
+            playButton.style.display = "none";
+        });
+
+        // Pause/Resume Music When Page is Hidden or Shown
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                audio.pause();
+                console.log("Page hidden, music paused.");
+            } else {
+                audio.play().catch(error => console.log("Autoplay blocked when returning."));
+                console.log("Page visible, music resumed.");
+            }
+        });
+    </script>
+
+</body>
+</html>
