@@ -22,46 +22,6 @@
             transition: background 1s ease-in-out;
         }
 
-        /* Hit counter position */
-        #hitCounter {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 5px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Floating text animation */
-        #floatingText {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            opacity: 0;
-            animation: flicker 0.5s infinite alternate, moveUpDown 2s infinite ease-in-out, fadeInOut 5s infinite;
-        }
-
-        @keyframes flicker {
-            0% { opacity: 1; }
-            100% { opacity: 0.2; }
-        }
-
-        @keyframes moveUpDown {
-            0% { transform: translate(-50%, -50%); }
-            50% { transform: translate(-50%, -55%); }
-            100% { transform: translate(-50%, -45%); }
-        }
-
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
         /* Countdown box */
         #content {
             position: absolute;
@@ -81,20 +41,9 @@
 
     <!-- Background Music -->
     <audio id="backgroundMusic" autoplay loop>
-        <source src="https://drive.google.com/uc?export=download&id=1UHp-hD2si133SmvSUV-jRr8or_RhVnt1" type="audio/mpeg">
+        <source src="YOUR_WORKING_MP3_LINK_HERE.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-
-    <!-- Hit Counter -->
-    <div id="hitCounter">
-        <a href="https://www.hitwebcounter.com" target="_blank">
-            <img src="https://hitwebcounter.com/counter/counter.php?page=19950782&style=0011&nbdigits=4&type=page&initCount=0" 
-            title="Counter Widget" alt="Visit counter For Websites" border="0" />
-        </a>
-    </div>
-
-    <!-- Floating text -->
-    <div id="floatingText">I Love You Suha ❤️</div>
 
     <!-- Countdown box -->
     <div id="content">
