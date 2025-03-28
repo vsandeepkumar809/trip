@@ -128,6 +128,8 @@
         document.addEventListener('visibilitychange', function() {
             if (document.hidden) {
                 audio.pause();
+            } else {
+                audio.play();
             }
         });
         document.body.addEventListener('click', function() {
