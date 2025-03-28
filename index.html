@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown with Background Music</title>
+    <title>Countdown with Background</title>
     <style>
         /* Full-screen, responsive background */
         body {
@@ -17,33 +17,85 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            background: no-repeat center center fixed;
+            background: url('https://your-image-url.com/image.jpg') no-repeat center center fixed;
             background-size: cover;
-            transition: background 1s ease-in-out;
+        }
+
+        /* Mobile fix for background scrolling issues */
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+            }
+        }
+
+        /* Hit counter position */
+        #hitCounter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8); /* Optional: Transparent background */
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+        }
+
+        /* Floating text animation */
+        #floatingText {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            opacity: 0;
+            animation: flicker 0.5s infinite alternate, moveUpDown 2s infinite ease-in-out, fadeInOut 5s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+
+        @keyframes moveUpDown {
+            0% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -55%); }
+            100% { transform: translate(-50%, -45%); }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
         }
 
         /* Countdown box */
         #content {
             position: absolute;
-            bottom: 20px;
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.8);
-            padding: 15px;
-            border-radius: 5px;
+            padding: 20px;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             border: 5px solid #333;
             white-space: nowrap;
         }
+
     </style>
 </head>
 <body>
 
-    <!-- Background Music -->
-    <audio id="backgroundMusic" autoplay loop>
-        <source src="https://voca.ro/15zpcLgb81KL" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <!-- Hit Counter -->
+    <div id="hitCounter">
+        <a href="https://www.hitwebcounter.com" target="_blank">
+            <img src="https://hitwebcounter.com/counter/counter.php?page=19950782&style=0011&nbdigits=4&type=page&initCount=0" 
+            title="Counter Widget" alt="Visit counter For Websites" border="0" />
+        </a>
+    </div>
+
+    <!-- Floating text -->
+    <div id="floatingText">I Love You Suha ❤️</div>
 
     <!-- Countdown box -->
     <div id="content">
@@ -51,24 +103,6 @@
     </div>
 
     <script>
-        // Slideshow Background Images
-        const images = [
-            'https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png',
-            'https://i.postimg.cc/KvSrfj8Y/Untitled-design.png',
-            'https://i.postimg.cc/s2vhsCg8/2.png'
-        ];
-
-        let currentIndex = 0;
-
-        function changeBackground() {
-            document.body.style.backgroundImage = `url(${images[currentIndex]})`;
-            currentIndex = (currentIndex + 1) % images.length;
-        }
-
-        setInterval(changeBackground, 5000);
-        changeBackground(); // Initial call
-
-        // Countdown Timer
         function updateCountdown() {
             const targetDate = new Date('April 10, 2025 10:30:00').getTime();
             const now = new Date().getTime();
@@ -92,14 +126,6 @@
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
-
-        // Autoplay Music Fix for Mobile Devices
-        document.addEventListener('click', function() {
-            const audio = document.getElementById("backgroundMusic");
-            if (audio.paused) {
-                audio.play().catch(error => console.log("Autoplay blocked:", error));
-            }
-        });
     </script>
 
 </body>
