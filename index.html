@@ -40,7 +40,7 @@
 
         #content {
             position: absolute;
-            bottom: 20px;
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.9);
@@ -56,25 +56,14 @@
             font-weight: bold;
         }
 
-        #playMusicBtn {
+        #audioControls {
             position: absolute;
-            top: 50%;
+            bottom: 10px;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: #ff5733;
-            color: white;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            display: block;
+            transform: translateX(-50%);
+            width: 250px;
         }
 
-        #playMusicBtn:hover {
-            background: #e04e2a;
-        }
     </style>
 </head>
 <body>
@@ -84,13 +73,17 @@
         <img id="bgMedia" src="https://www.dropbox.com/scl/fi/dbkniwgfi60o8sdl4qrm7/Lovera.gif?rlkey=q0hksupkeyiuejdgmgqnhrr7z&st=orvk8jrd&raw=1" alt="GIF">
     </div>
 
-    <!-- Play Music Button -->
-    <button id="playMusicBtn">🎵 Play Music</button>
-
     <!-- Countdown Box -->
     <div id="content">
         <div id="countdown">Loading... ⏳</div>
     </div>
+
+    <!-- Audio Player -->
+    <audio id="backgroundAudio" controls loop>
+        <source src="https://www.dropbox.com/scl/fi/ybik0nc73k0wekrnke9oq/urike.mp3?rlkey=dnit3der6fo0u3ostc8jbps23&st=ck2tx4ay&raw=1" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    <div id="audioControls"></div>
 
     <script>
         const images = [
@@ -173,15 +166,6 @@
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
-
-        // Play Music Button
-        document.getElementById('playMusicBtn').addEventListener('click', function () {
-            const audio = new Audio("https://www.dropbox.com/scl/fi/ybik0nc73k0wekrnke9oq/urike.mp3?rlkey=dnit3der6fo0u3ostc8jbps23&st=ck2tx4ay&raw=1");
-            audio.loop = true;
-            audio.play().catch(error => console.log("Autoplay blocked, user must manually start."));
-            this.style.display = 'none';
-        });
-
     </script>
 
 </body>
