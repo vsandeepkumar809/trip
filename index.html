@@ -22,60 +22,80 @@
             transition: background-image 1s ease-in-out;
         }
 
-        /* Mobile fix for background scrolling issues */
-        @media (max-width: 768px) {
-            body {
-                background-attachment: scroll;
-            }
-        }
-
         /* Countdown box at the bottom */
         #content {
             position: absolute;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             color: black;
             padding: 15px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            border: 5px solid #333;
-            white-space: nowrap;
+            border: 3px solid #333;
             font-size: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
         }
 
-        /* Play button (hidden initially) */
+        /* Play Music button */
         #playButton {
             position: absolute;
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px;
+            background: #ff4757;
+            color: white;
             border: none;
-            border-radius: 5px;
+            padding: 10px 20px;
             font-size: 16px;
-            font-weight: bold;
             cursor: pointer;
-            display: none; /* Initially hidden */
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        #playButton:hover {
+            background: #e84118;
+        }
+
+        /* Hidden audio control bar (shown after button click) */
+        #audioControls {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        audio {
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
+    <!-- Play Music Button -->
+    <button id="playButton">Play Music 🎵</button>
+
+    <!-- Hidden Audio Controls -->
+    <div id="audioControls">
+        <audio id="bgMusic" controls loop>
+            <source src="https://www.dropbox.com/scl/fi/ybik0nc73k0wekrnke9oq/urike.mp3?rlkey=dnit3der6fo0u3ostc8jbps23&st=ck2tx4ay&dl=1" type="audio/mpeg">
+        </audio>
+    </div>
+
     <!-- Countdown box -->
     <div id="content">
         <div id="countdown">Loading... ⏳</div>
     </div>
-
-    <!-- Background Music -->
-    <audio id="bgMusic" loop>
-        <source src="https://www.dropbox.com/scl/fi/ybik0nc73k0wekrnke9oq/urike.mp3?rlkey=dnit3der6fo0u3ostc8jbps23&st=ck2tx4ay&dl=1" type="audio/mpeg">
-    </audio>
-
-    <!-- Play Button for iOS Fix -->
-    <button id="playButton">▶ Play Music</button>
 
     <script>
         // Background Image Slideshow
@@ -119,38 +139,22 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Autoplay Music Handling
-        const audio = document.getElementById('bgMusic');
-        const playButton = document.getElementById('playButton');
-
-        function playMusic() {
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    console.log("Audio is playing!");
-                    playButton.style.display = "none"; // Hide button if successful
-                }).catch(error => {
-                    console.log("Autoplay blocked. Showing play button.");
-                    playButton.style.display = "block"; // Show button if autoplay is blocked
-                });
-            }
-        }
-
-        // Attempt autoplay on page load
-        document.addEventListener('DOMContentLoaded', playMusic);
-
-        // User interaction to start music if needed
-        playButton.addEventListener('click', () => {
-            audio.play();
-            playButton.style.display = "none";
+        // Show Audio Controls & Play Music When Button Clicked
+        document.getElementById('playButton').addEventListener('click', function () {
+            document.getElementById('audioControls').style.display = 'block'; // Show audio controls
+            document.getElementById('playButton').style.display = 'none'; // Hide Play Music button
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(error => console.log("Autoplay blocked, user must manually start."));
         });
 
-        // Pause/Resume Music When Page is Hidden or Shown
+        // Auto Pause/Resume Music When Page is Hidden
+        const audio = document.getElementById('bgMusic');
+
         document.addEventListener("visibilitychange", function() {
             if (document.hidden) {
                 audio.pause();
                 console.log("Page hidden, music paused.");
-            } else {
+            } else if (document.getElementById('audioControls').style.display === 'block') {
                 audio.play().catch(error => console.log("Autoplay blocked when returning."));
                 console.log("Page visible, music resumed.");
             }
