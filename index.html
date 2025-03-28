@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown with Background</title>
+    <title>Countdown with Background Slideshow</title>
     <style>
-        /* Full-screen flexible background */
+        /* Full-screen background */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -17,16 +17,9 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            background: url('https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png') no-repeat center center;
-            background-size: contain; /* Ensures full image is visible */
-            background-color: #f0f0f0; /* Fallback color */
-        }
-
-        /* Mobile fix: Ensure background scales properly */
-        @media (max-width: 768px) {
-            body {
-                background-size: contain;
-            }
+            background-size: cover;
+            background-position: center;
+            transition: background 1s ease-in-out; /* Smooth transition */
         }
 
         /* Hit counter */
@@ -69,7 +62,7 @@
             50% { opacity: 1; }
         }
 
-        /* Countdown box (centered properly) */
+        /* Countdown box */
         #content {
             position: absolute;
             bottom: 10%;
@@ -117,6 +110,25 @@
     </div>
 
     <script>
+        // Image Slideshow
+        const images = [
+            'https://i.postimg.cc/Z5rJtBJM/427338048-a0f03926-8004-4057-9eba-d6015af15e3f.png',
+            'https://i.postimg.cc/FHkWR8zf/Suha.png',
+            'https://i.postimg.cc/hG928m9c/Suha1.png'
+        ];
+        let currentImageIndex = 0;
+
+        function changeBackground() {
+            document.body.style.background = `url('${images[currentImageIndex]}') no-repeat center center`;
+            document.body.style.backgroundSize = 'cover';
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+        }
+
+        // Change background every 5 seconds
+        setInterval(changeBackground, 5000);
+        changeBackground(); // Initial call to set first image
+
+        // Countdown Timer
         function updateCountdown() {
             const targetDate = new Date('April 10, 2025 10:30:00').getTime();
             const now = new Date().getTime();
@@ -132,7 +144,7 @@
             const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
             const totalHours = Math.floor(difference / (1000 * 60 * 60));
             const totalMinutes = Math.floor(difference / (1000 * 60));
-            const totalSeconds = Math.floor(difference / 1000);
+            const totalSeconds = Math.floor(difference / 1000) % 60; // Added seconds calculation
 
             document.getElementById('countdown').innerHTML = `⏳ ${weeks} week ${days} days 🧳<br> 
                 ${totalDays} days | ${totalHours} hours | ${totalMinutes} minutes | ${totalSeconds} seconds`;
