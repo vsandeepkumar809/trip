@@ -56,12 +56,30 @@
             font-weight: bold;
         }
 
-        #audioControls {
+        #playButton {
             position: absolute;
-            bottom: 10px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 250px;
+            background: #ff4500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+        }
+
+        #audioControls {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
         }
 
     </style>
@@ -78,12 +96,17 @@
         <div id="countdown">Loading... ⏳</div>
     </div>
 
+    <!-- Play Button -->
+    <button id="playButton">▶ Play Music</button>
+
     <!-- Audio Player -->
-    <audio id="backgroundAudio" controls loop>
+    <audio id="backgroundAudio" loop>
         <source src="https://www.dropbox.com/scl/fi/ybik0nc73k0wekrnke9oq/urike.mp3?rlkey=dnit3der6fo0u3ostc8jbps23&st=ck2tx4ay&raw=1" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-    <div id="audioControls"></div>
+    <div id="audioControls">
+        <audio id="visibleAudio" controls></audio>
+    </div>
 
     <script>
         const images = [
@@ -92,12 +115,35 @@
             'https://www.dropbox.com/scl/fi/brg0od9k7kzr19ims88aq/Lovera-2.png?rlkey=tura84ey0e0r4znqmmyc20js0&st=vyqzflpx&raw=1'
         ];
 
-        const gifSrc = "https://www.dropbox.com/scl/fi/dbkniwgfi60o8sdl4qrm7/Lovera.gif?rlkey=q0hksupkeyiuejdgmgqnhrr7z&st=orvk8jrd&raw=1";
+        const gifSrc = "https://www.dropbox.com/scl/fi/0wzxetnqu9ej4oolqb9bl/Lovera.gif?rlkey=88pd02kmdwp7032eyr5ide9b9&st=19m3yt7a&raw=1";
         const videoSrc = "https://www.dropbox.com/scl/fi/skiw1bm6xi6fj4wiif4gu/Lovera.mp4?rlkey=00hdc80ivzrb6vnrx5o49k4pz&st=kq9nvkv4&raw=1";
         
         let currentIndex = 0;
         let mediaContainer = document.getElementById("mediaContainer");
         let bgMedia = document.getElementById("bgMedia");
+        let playButton = document.getElementById("playButton");
+        let audioControls = document.getElementById("audioControls");
+        let backgroundAudio = document.getElementById("backgroundAudio");
+        let visibleAudio = document.getElementById("visibleAudio");
+
+        visibleAudio.src = backgroundAudio.children[0].src;
+
+        playButton.addEventListener("click", function() {
+            backgroundAudio.play();
+            playButton.style.display = "none";
+            audioControls.style.display = "block";
+
+            setTimeout(() => {
+                audioControls.style.display = "none";
+            }, 5000);
+        });
+
+        document.body.addEventListener("click", function() {
+            audioControls.style.display = "block";
+            setTimeout(() => {
+                audioControls.style.display = "none";
+            }, 5000);
+        });
 
         function showImage(index) {
             bgMedia.src = images[index];
@@ -140,7 +186,6 @@
             cycleMedia();
         }, 20000);
 
-        // Countdown Timer
         function updateCountdown() {
             const targetDate = new Date('April 10, 2025 10:30:00').getTime();
             const now = new Date().getTime();
@@ -153,15 +198,8 @@
 
             const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
             const days = Math.floor((difference / (1000 * 60 * 60 * 24)) % 7);
-            const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const totalHours = Math.floor(difference / (1000 * 60 * 60));
-            const totalMinutes = Math.floor(difference / (1000 * 60));
-            const totalSeconds = Math.floor(difference / 1000);
 
-            document.getElementById('countdown').innerHTML = `
-                ⏳ ${weeks} week ${days} days 🧳<br>
-                ${totalDays} days | ${totalHours} hours | ${totalMinutes} minutes | ${totalSeconds} seconds
-            `;
+            document.getElementById('countdown').innerHTML = `⏳ ${weeks} weeks ${days} days 🧳`;
         }
 
         setInterval(updateCountdown, 1000);
