@@ -109,25 +109,31 @@
         setInterval(changeMedia, 15000); // Change image every 15 seconds
         changeMedia();
         function updateCountdown() {
-            const targetDate = new Date('April 10, 2025 10:30:00').getTime();
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-            if (difference < 0) {
-                document.getElementById('countdown').innerHTML = "🎉 It's time for your trip! 🚀🎒";
-                return;
-            }
-            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
-            const days = Math.floor((difference / (1000 * 60 * 60 * 24)) % 7);
-            const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const totalHours = Math.floor(difference / (1000 * 60 * 60));
-            const totalMinutes = Math.floor(difference / (1000 * 60));
-            const totalSeconds = Math.floor(difference / 1000);
-            document.getElementById('countdown').innerHTML = 
-                `⏳ ${weeks} week ${days} days 🧳<br>
-                ${totalDays} days | ${totalHours} hours | ${totalMinutes} minutes | ${totalSeconds} seconds`;
-        }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+    const targetDate = new Date('April 10, 2025 10:30:00').getTime();
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    if (difference < 0) {
+        document.getElementById('countdown').innerHTML = "🎉 It's time for your trip! 🚀🎒";
+        return;
+    }
+
+    const totalSeconds = Math.floor(difference / 1000);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const totalHours = Math.floor(totalMinutes / 60);
+    const totalDays = Math.floor(totalHours / 24);
+    
+    const weeks = Math.floor(totalDays / 7);
+    const days = totalDays % 7; // Remaining days after full weeks
+
+    document.getElementById('countdown').innerHTML = 
+        `⏳ ${weeks} week${weeks !== 1 ? 's' : ''} ${days} day${days !== 1 ? 's' : ''} 🧳<br>
+        ${totalDays} days | ${totalHours} hours | ${totalMinutes} minutes | ${totalSeconds} seconds`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
         const audio = document.getElementById('bgMusic');
         document.getElementById('playMusicBtn').addEventListener('click', function() {
             audio.play();
