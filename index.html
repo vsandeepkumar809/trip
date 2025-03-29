@@ -108,9 +108,9 @@
         }
         setInterval(changeMedia, 15000); // Change image every 15 seconds
         changeMedia();
-        function updateCountdown() {
-    // Set the exact target date & time (April 10, 2025, 10:30 AM) in UTC to avoid time zone issues
-    const targetDate = new Date('2025-04-10T10:30:00Z').getTime(); 
+function updateCountdown() {
+    // Set target date for April 10, 2025, at 10:30 AM IST (UTC+5:30)
+    const targetDate = new Date('2025-04-10T10:30:00+05:30').getTime();
     const now = new Date().getTime();
     const difference = targetDate - now;
 
@@ -119,17 +119,17 @@
         return;
     }
 
-    // Calculate total time left
+    // Calculate remaining time correctly
     const totalSeconds = Math.floor(difference / 1000);
     const totalMinutes = Math.floor(totalSeconds / 60);
     const totalHours = Math.floor(totalMinutes / 60);
     const totalDays = Math.floor(totalHours / 24);
 
-    // Correct weeks and remaining days calculation
+    // Correctly calculate weeks and remaining days
     const weeks = Math.floor(totalDays / 7);
     const days = totalDays % 7;
 
-    // Display countdown with corrected values
+    // Update the countdown display
     document.getElementById('countdown').innerHTML = 
         `⏳ ${weeks} week${weeks !== 1 ? 's' : ''} ${days} day${days !== 1 ? 's' : ''} 🧳<br>
         ${totalDays} days | ${totalHours} hours | ${totalMinutes} minutes | ${totalSeconds} seconds`;
@@ -138,6 +138,7 @@
 // Update countdown every second
 setInterval(updateCountdown, 1000);
 updateCountdown();
+
 
 
         const audio = document.getElementById('bgMusic');
